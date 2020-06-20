@@ -1,0 +1,182 @@
+<!--<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="/node_modules/chart.js/dist/Chart.js"></script>
+</head>
+<body>
+    <canvas id="chart" width="400" height="400"></canvas>
+    <p>hhhyyy</p>
+    <script>
+        const Chart = require('chart.js');
+        var ctx = document.getElementById("chart");
+        var chartt = new Chart(ctx,{
+            type="bar",
+            data:{
+                labels: ['jan','feb','march','apr','may','june','july','aug','sept','oct','nov','dec'],
+                datasets: [
+                    {
+                        label: 'My first datasets',
+                        backgroundColor: 'rgb(233,42,23)',
+                        borderColor : 'rgb(32,43,66)',
+                        data: [1,2,3,4,5,6,5,4,3,2,1,9] 
+                    }
+                ]
+            },
+            options : {}
+        });
+    </script>
+</body>
+</html>-->
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+</head>
+
+<body>
+    <div class="chart-container" style="position:relative; height:20vh;width:40vw">
+        <canvas id="myChart" width="400" height="100" aria-label="Hello ARIA World" role="img"></canvas>
+    </div>
+    <div class="chart-container" style="position:relative; height:60vh;width:60vw">
+        <canvas id="myChart1" width="400" height="100" aria-label="Hello ARIA World" role="img"></canvas>
+    </div>
+
+    
+    <button id="butt" onclick="fu()">Manual change</button>
+    <h1>hiii</h1>
+    <script type="text/javascript">
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["2005", "2007", "2009", "2012", "2014"],
+                datasets: [
+                    {
+                        label: 'HouseHold income',
+                        data: [5000, 8000, 10000, 1200, 15000],
+                        backgroundColor: ['rgba(0, 129, 102, 0.2)',
+                            'rgba(234, 0, 235, 0.2)',
+                            'rgba(255, 206, 0, 0.2)',
+                            'rgba(0, 192, 192, 0.2)',
+                            'rgba(153, 2, 255, 0.2)',
+                        ],
+                        borderColor: ['rgba(0, 129, 102, 1)',
+                            'rgba(234, 0, 235, 1)',
+                            'rgba(255, 206, 0, 1)',
+                            'rgba(0, 192, 192, 1)',
+                            'rgba(153, 2, 255, 1)',
+                        ],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                tooltips: {
+                    callbacks: {
+                        labelColor: function(tooltipItem, chart) {
+                            return {
+                                borderColor: 'rgb(255, 255, 255)',
+                                backgroundColor: 'rgb(255, 0, 0)'
+                            };
+                        },
+                        labelTextColor: function(tooltipItem, chart) {
+                            return '#FFFFFF';
+                        },
+                        label: function(tooltipItem, data) {
+                            var label = data.datasets[tooltipItem.datasetIndex].label || '';
+        
+                            if (label) {
+                                label += ' -> ';
+                            }
+                            label += Math.round(tooltipItem.yLabel * 100) / 100;
+                            return label;
+                        }
+                    }
+                },
+                hover: {
+                    animationDuration: 0 // duration of animations when hovering an item
+                },
+                layout:{
+                    padding:{
+                        left: 50,
+                        top:0,
+                        right: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    display: true,
+                    labels: {
+                        fontColor: 'rgb(255, 99, 132)'
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Custom Chart Title'
+                }
+
+            }
+        });
+        var ctx1 = document.getElementById("myChart1").getContext('2d');
+        // Do not show lines for all datasets by default
+        //Chart.showLine = false;
+        // This chart would show a line only for the third dataset
+        var chart1 = new Chart(ctx1, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    data: [1, 1],
+                }, {
+                    data: [2, 2]
+                }, {
+                    data: [1, 4],
+                    showLine: true // overrides the `line` dataset default
+                }, {
+                    data: [5, 1]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        stacked: false,
+                    }]
+                },
+            }
+        });
+    </script>
+    <script>
+        setInterval(function () { fu(); }, 2000);
+        function fu() {
+            var s = (String)(document.getElementById('myChart').parentNode.style.height);
+            s = s.slice(0, s.length - 2);
+            var i = parseInt(s);
+            if (i <= 50) {
+                document.getElementById('myChart').parentNode.style.height = i + 4 + "vh";
+            }
+            else {
+                document.getElementById('myChart').parentNode.style.height = 20 + "vh";
+                return;
+            }
+        }
+    </script>
+</body>
+
+</html>
